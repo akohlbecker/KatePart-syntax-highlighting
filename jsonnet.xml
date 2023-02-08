@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+
+ ***************************************************************************
+ ** Writing a Kate Highlighting XML File
+ ** http://kate-editor.org/article/writing_a_kate_highlighting_xml_file
+ **
+ ** Introducing Jsonnet
+ ** https://jsonnet.org/
+ **
+ ** This syntax Highlighting definition is based on json.xml by
+ ** Sebastian Pipping (sebastian@pipping.org)
+ ** https://kate-editor.org/syntax/data/syntax/json.xml
+ ***************************************************************************
+-->
+<language name="jsonnet" version="1" kateversion="2.4" section="Markup" extensions="*.jsonnet;*.libsonnet;*.libjsonnet"  mimetype="application/jsonnet" author="Andreas Kohlbecker" license="GPL">
+  <highlighting>
+    <list name="Constants">
+      <item>null</item>
+      <item>true</item>
+      <item>false</item>
+    </list>
+
+    <list name="Scope">
+      <item>local</item>
+    </list>
+
+    <list name="function">
+      <item>isString</item>
+      <item>isNumber</item>
+      <item>isBoolean</item>
+      <item>isObject</item>
+      <item>isArray</item>
+      <item>isFunction</item>
+      <item>acos</item>
+      <item>asin</item>
+      <item>atan</item>
+      <item>ceil</item>
+      <item>char</item>
+      <item>codepoint</item>
+      <item>cos</item>
+      <item>exp</item>
+      <item>exponent</item>
+      <item>filter</item>
+      <item>floor</item>
+      <item>force</item>
+      <item>length</item>
+      <item>log</item>
+      <item>makeArray</item>
+      <item>mantissa</item>
+      <item>sign</item>
+      <item>equals</item>
+      <item>prune</item>
+      <item>pow</item>
+      <item>sin</item>
+      <item>sqrt</item>
+      <item>tan</item>
+      <item>type</item>
+      <item>max</item>
+      <item>min</item>
+      <item>mod</item>
+      <item>thisFile</item>
+      <item>abs</item>
+      <item>assertEqual</item>
+      <item>escapeString(Bash</item>
+      <item>Dollars</item>
+      <item>Json</item>
+      <item>Python</item>
+      <item>filterMap</item>
+      <item>flattenArrays</item>
+      <item>foldl</item>
+      <item>foldr</item>
+      <item>format</item>
+      <item>join</item>
+      <item>mapWithIndex</item>
+      <item>mapWithKey</item>
+      <item>deepJoin</item>
+      <item>mergePatch</item>
+      <item>lines</item>
+      <item>map</item>
+      <item>find</item>
+      <item>findSubstr</item>
+      <item>splitLimit</item>
+      <item>strReplace</item>
+      <item>asciiUpper</item>
+      <item>asciiLower</item>
+      <item>set</item>
+      <item>setDiff</item>
+      <item>setInter</item>
+      <item>setMember</item>
+      <item>setUnion</item>
+      <item>sort</item>
+      <item>resolvePath</item>
+      <item>base64</item>
+      <item>base64Decode</item>
+      <item>base64DecodeBytes</item>
+      <item>split</item>
+      <item>stringChars</item>
+      <item>substr</item>
+      <item>toString</item>
+      <item>startsWith</item>
+      <item>endsWith</item>
+      <item>parseInt</item>
+      <item>parseOctal</item>
+      <item>parseHex</item>
+      <item>range</item>
+      <item>uniq</item>
+      <item>slice</item>
+      <item>count</item>
+      <!-- TODO:
+        objectFields(All)?|objectHas(All)?|
+        manifest(Ini|Python(Vars)?|Json(Ex)?|Yaml(Doc|Stream)|XmlJsonml
+      manifest(Ini|Python(Vars)?|Json(Ex)?|Yaml(Doc|Stream)|XmlJsonml
+      -->
+    </list>
+
+     <list name="other">
+      <item>tailstrict</item>
+     </list>
+
+    <contexts>
+      <context name="Normal" lineEndContext="#stay" attribute="Style_Error">
+        <DetectChar char="{" context="Pair" beginRegion="Region_Object" attribute="Style_Seperator_Pair"/>
+        <DetectChar char="[" context="Array" beginRegion="Region_Array" attribute="Style_Seperator_Array"/>
+        <DetectSpaces context="#stay" attribute="Style_Normal"/>
+        <keyword attribute="Style_Keyword" context="VarDecalartion" String="Scope" />
+
+        <RegExpr String="[a-zA-Z_][a-z0-9A-Z_\.]*\s*\(" attribute="Style_Function" context="Function_Definition" />
+        <RegExpr String="[a-zA-Z_][a-z0-9A-Z_\.]*\s*\((?:.*?\;)" attribute="Style_Function" context="Function_Call" />
+
+        <IncludeRules context="FindComments"/>
+      </context>
+
+      <context name="Pair" lineEndContext="#stay" attribute="Style_Error">
+        <DetectChar char="&quot;" context="String_Key" attribute="Style_String_Key"/>
+        <DetectChar char="'" context="String_Key" attribute="Style_String_Key"/>
+        <RegExpr String="[a-zA-Z_][a-z0-9A-Z_\.]*\s*(?!\()" attribute="Style_String_Key" context="#stay" />
+        <DetectChar char=":" context="Value" attribute="Style_Seperator_Pair"/>
+        <DetectChar char="=" context="Value" attribute="Style_Seperator_Pair"/>
+        <DetectChar char="}" context="#pop" endRegion="Region_Object" attribute="Style_Seperator_Pair"/>
+        <DetectChar char="," context="#stay" attribute="Style_Seperator_Pair"/>
+        <keyword attribute="Style_Keyword" context="VarDecalartion" String="Scope" />
+
+        <RegExpr String="[a-zA-Z_][a-z0-9A-Z_\.]*\s*\(" attribute="Style_Function" context="Function_Definition" />
+        <RegExpr String="[a-zA-Z_][a-z0-9A-Z_\.]*\s*\(.*(?:\)\s*;" attribute="Style_Function" context="Function_Call" />
+
+        <IncludeRules context="FindComments"/>
+        <DetectSpaces context="#stay" attribute="Style_Normal"/>
+      </context>
+
+      <context name="VarDecalartion" lineEndContext="#stay" attribute="Style_Variable">
+        <DetectChar char="=" context="#stay" attribute="Style_String_Key"/>
+        <DetectChar char="&quot;" context="String_Key" attribute="Style_String_Key"/>
+        <DetectChar char="," context="#pop" attribute="Style_Normal"/>
+        <DetectChar char=";" context="#pop" attribute="Style_Normal"/>
+      </context>
+
+      <context name="String_Key" lineEndContext="#stay" attribute="Style_String_Key">
+        <DetectChar char="&quot;" context="#pop" attribute="Style_String_Key"/>
+        <DetectChar char="'" context="#pop" attribute="Style_String_Key"/>
+        <RegExpr String="\\(?:[&quot;\\/bfnrt]|u[0-9a-fA-f]{4})" context="#stay" attribute="Style_String_Key_Char"/>
+      </context>
+
+      <context name="Value" lineEndContext="#stay" attribute="Style_Error">
+        <AnyChar String="}," context="#pop" lookAhead="true"/>
+        <IncludeRules context="JsonValue"/>
+      </context>
+
+      <context name="JsonValue" lineEndContext="#stay" attribute="Style_Error">
+        <DetectChar char="&quot;" context="String_Value" attribute="Style_String_Value"/>
+        <DetectChar char="'" context="String_Value" attribute="Style_String_Value"/>
+        <DetectChar char="+" context="#stay" attribute="Style_Operator_Char"/>
+        <DetectChar char="{" context="Pair" beginRegion="Region_Object" attribute="Style_Seperator_Pair"/>
+        <DetectChar char="[" context="Array" beginRegion="Region_Array" attribute="Style_Seperator_Array"/>
+
+        <DetectSpaces context="#stay" attribute="Style_Normal"/>
+
+        <keyword String="Constants" context="#stay" attribute="Style_Keyword"/>
+        <RegExpr String="[a-zA-Z][a-zA-Z_]*" context="#stay" attribute="Style_Variable"/><!-- variable usage -->
+        <RegExpr String="-?[0-9]+\.[0-9]+(?:[eE][+-]?[0-9]+)?" context="#stay" attribute="Style_Float"/>
+        <RegExpr String="-?[0-9]+(?:[eE][+-]?[0-9]+)?" context="#stay" attribute="Style_Decimal"/>
+      </context>
+
+      <context name="String_Value" lineEndContext="#stay" attribute="Style_String_Value">
+        <DetectChar char="&quot;" context="#pop" attribute="Style_String_Value"/>
+        <DetectChar char="'" context="#pop" attribute="Style_String_Value"/>
+        <RegExpr String="\\(?:[&quot;\\/bfnrt]|u[0-9a-fA-f]{4})" context="#stay" attribute="Style_String_Value_Char"/>
+      </context>
+
+      <context name="Array" lineEndContext="#stay" attribute="Style_Error">
+        <DetectChar char="," context="#stay" attribute="Style_Seperator_Array"/>
+        <DetectChar char="]" context="#pop" endRegion="Region_Array" attribute="Style_Seperator_Array"/>
+
+        <IncludeRules context="JsonValue"/>
+      </context>
+
+      <!-- find and style comments # // /* comment */ -->
+      <context name="FindComments" attribute="Normal Text" lineEndContext="#stay">
+          <DetectChar attribute="Comment" context="IsComments" char="#" lookAhead="true"/>
+          <Detect2Chars attribute="Comment" context="IsComments" char="/" char1="/" lookAhead="true"/>
+          <Detect2Chars attribute="Comment" context="IsComments" char="/" char1="*" lookAhead="true"/>
+      </context>
+
+      <context name="IsComments" attribute="Normal Text" lineEndContext="#stay">
+          <DetectChar attribute="Style_Comment" context="Comment" char="#" />
+          <Detect2Chars attribute="Style_Comment" context="Comment" char="/" char1="/" />
+          <Detect2Chars attribute="Style_Comment" context="MultilineComment" char="/" char1="*" beginRegion="comment"/>
+      </context>
+
+      <context name="Comment" attribute="Style_Comment" lineEndContext="#pop#pop">
+        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
+      </context>
+      <context name="MultilineComment" attribute="Style_Comment" lineEndContext="#stay">
+        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
+        <RegExpr String="\*/" context="#pop#pop" attribute="Style_Comment" endRegion="comment"/>
+      </context>
+
+       <!-- find and style function definitions and calls -->
+      <context name="FindFunctions" attribute="Style_Normal" lineEndContext="#stay">
+                <RegExpr attribute="Function" context="Function" String="[a-zA-Z0-9_\.]{2,}\s*\(" lookAhead="true"/>
+      </context>
+
+
+      <context name="Function_Definition" attribute="Style_Function" lineEndContext="#pop#pop">
+         <DetectChar char="&quot;" context="String_Value" attribute="Style_String_Value"/>
+         <DetectChar char="," context="#stay" attribute="Style_Normal"/>
+         <!-- RegExpr String=")?\s*\+?::?:?" context="#pop" attribute="Style_Function"/ -->
+      </context>
+      <context name="Function_Call" attribute="Style_Function" lineEndContext="#pop">
+         <DetectChar char="&quot;" context="String_Value" attribute="Style_String_Value"/>
+         <DetectChar char="," context="#stay" attribute="Style_Function"/>
+      </context>
+
+    </contexts>
+
+    <itemDatas>
+      <itemData name="Style_Normal" defStyleNum="dsNormal"/>
+
+      <itemData name="Style_Comment" defStyleNum="dsComment" />
+
+      <itemData name="Style_Seperator_Pair" defStyleNum="dsFunction" bold="true"/>
+      <itemData name="Style_Seperator_Array" defStyleNum="dsOthers" bold="true"/>
+
+      <itemData name="Style_Decimal" defStyleNum="dsDecVal"/>
+      <itemData name="Style_Float" defStyleNum="dsFloat"/>
+      <itemData name="Style_String_Key" defStyleNum="dsDataType"/>
+      <itemData name="Style_String_Value" defStyleNum="dsString"/>
+      <itemData name="Style_String_Key_Char" defStyleNum="dsChar"/>
+      <itemData name="Style_String_Value_Char" defStyleNum="dsChar"/>
+      <itemData name="Style_Operator_Char"  defStyleNum="dsOperator"/>
+      <itemData name="Style_Function" defStyleNum="dsFunction"/>
+      <itemData name="Style_Variable" defStyleNum="dsVariable"/>
+      <itemData name="Style_Keyword" defStyleNum="dsKeyword"/>
+
+      <itemData name="Style_Error" defStyleNum="dsError"/>
+    </itemDatas>
+  </highlighting>
+
+  <general>
+    <comments>
+      <comment name="singleLine" start="#"/>
+      <comment name="singleLine" start="//"/>
+      <comment name="multiLine" start="/*" end="*/" region="CommentFolding"/>
+    </comments>
+    <keywords casesensitive="1"/>
+    <folding indentationsensitive="0"/>
+    <emptyLines>
+      <emptyLine regexpr="\s+"/>
+    </emptyLines>
+  </general>
+</language>
+<!--
+// kate: space-indent on; indent-width 2; replace-tabs on;
+-->
