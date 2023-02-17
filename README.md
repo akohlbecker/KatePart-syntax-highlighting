@@ -28,8 +28,20 @@ Changes can now be loaded by executing `reload-highlighting` in the Kate Command
     * [scss.xml](https://kate-editor.org/syntax/data/syntax/scss.xml) as example for detecting comments and functions
 * A syntax file for the Atom editor: https://github.com/google/language-jsonnet
 
+### Jsonnet
+
+* [jsonnet specification](https://jsonnet.org/ref/spec.html)
+
 # XML Validation
 
 Optionally: Download the latest language.xsd from https://invent.kde.org/frameworks/syntax-highlighting/-/tree/master/data/schema to the root of this repo.
 
 Vsalidate with `./validatehl.sh jsonnet.xml`
+
+### Other syntax definitions
+
+#### Atom editor
+
+* [A guide to writing a language grammar (TextMate) in Atom](https://gist.github.com/Aerijo/b8c82d647db783187804e86fa0a604a1)
+* [Official documentation (via WAYBACK)](https://web.archive.org/web/20220609225733/https://flight-manual.atom.io/hacking-atom/sections/creating-a-legacy-textmate-grammar/]
+* [oniguruma, the regex syntax used in Atom editor syntax files](https://github.com/kkos/oniguruma/blob/master/doc/RE)
