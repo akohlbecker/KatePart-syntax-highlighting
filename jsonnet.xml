@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
-
  ***************************************************************************
- ** Writing a Kate Highlighting XML File
- ** http://kate-editor.org/article/writing_a_kate_highlighting_xml_file
- **
- ** Introducing Jsonnet
- ** https://jsonnet.org/
- ** https://jsonnet.org/ref/spec.html
- **
- ** This syntax Highlighting definition is based on json.xml by
- ** Sebastian Pipping (sebastian@pipping.org)
- ** https://kate-editor.org/syntax/data/syntax/json.xml
+ * Syntax Highlighting definition for the jsonnet language
+ *
+ * https://jsonnet.org/
+ *
+ * SPDX-FileCopyrightText: 2023 Andreas Kohlbecker <ak@neotop.de>
+ * SPDX-License-Identifier: MIT
+ *
  ***************************************************************************
 -->
 <language name="jsonnet" version="1" kateversion="2.4" section="Markup" extensions="*.jsonnet;*.libsonnet;*.libjsonnet"  mimetype="application/jsonnet" author="Andreas Kohlbecker" license="GPL">

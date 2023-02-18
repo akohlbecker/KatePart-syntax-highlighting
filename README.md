@@ -28,6 +28,12 @@ Changes can now be loaded by executing `reload-highlighting` in the Kate Command
     * [scss.xml](https://kate-editor.org/syntax/data/syntax/scss.xml) as example for detecting comments and functions
 * A syntax file for the Atom editor: https://github.com/google/language-jsonnet
 
+### KDE Syntax Highlighting Engine
+
+* [Official repo](https://invent.kde.org/frameworks/syntax-highlighting)
+    * [Licensing](https://invent.kde.org/frameworks/syntax-highlighting#licensing)
+    * [Contributing](https://invent.kde.org/frameworks/syntax-highlighting#tips-for-contributing-to-syntax-definition-files)
+
 ### Jsonnet
 
 * [jsonnet specification](https://jsonnet.org/ref/spec.html)
